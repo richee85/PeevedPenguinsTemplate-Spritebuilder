@@ -37,6 +37,11 @@
     CGPoint force = ccpMult(launchdirection, 8000);
     
     [penguin.physicsBody applyForce:force];
+    
+    self.position = ccp(0,0);
+    
+    CCActionFollow *follow = [CCActionFollow actionWithTarget:penguin worldBoundary:self.boundingBox];
+    [self runAction:follow];
 }
 
 @end
