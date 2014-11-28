@@ -11,10 +11,14 @@
 @implementation Gameplay{
     CCPhysicsNode *_physicsNode;
     CCNode *_catapultArm;
+    CCNode *_levelNode;
 }
 
 -(void)didLoadFromCCB {
     self.userInteractionEnabled = true;
+    
+    CCScene *level = [CCBReader loadAsScene:@"Levels/Level_1"];
+    [_levelNode addChild:level];
 }
 
 -(void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event {
