@@ -25,7 +25,7 @@
     [_levelNode addChild:level];
     
     //debug draw mode
-    _physicsNode.debugDraw = false;
+    _physicsNode.debugDraw = true;
     //debug draw end
     
     _pullbackNode.physicsBody.collisionMask = @[];
