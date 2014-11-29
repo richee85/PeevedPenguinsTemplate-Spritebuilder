@@ -1017,7 +1017,7 @@
 									<key>affectedByGravity</key>
 									<false/>
 									<key>allowsRotation</key>
-									<true/>
+									<false/>
 									<key>bodyShape</key>
 									<integer>1</integer>
 									<key>collisionCategories</key>
@@ -1031,7 +1031,7 @@
 									<key>density</key>
 									<real>1</real>
 									<key>dynamic</key>
-									<false/>
+									<true/>
 									<key>elasticity</key>
 									<real>0.30000001192092896</real>
 									<key>friction</key>
