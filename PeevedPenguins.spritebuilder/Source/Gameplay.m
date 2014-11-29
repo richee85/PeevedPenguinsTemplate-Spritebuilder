@@ -13,6 +13,7 @@
     CCNode *_catapultArm;
     CCNode *_levelNode;
     CCNode *_contentNode;
+    CCNode *_pullbackNode;
 }
 
 -(void)didLoadFromCCB {
@@ -20,6 +21,8 @@
     
     CCScene *level = [CCBReader loadAsScene:@"Levels/Level_1"];
     [_levelNode addChild:level];
+    _physicsNode.debugDraw = true;
+    _pullbackNode.physicsBody.collisionMask = @[];
 }
 
 -(void)touchBegan:(CCTouch *)touch withEvent:(CCTouchEvent *)event {
