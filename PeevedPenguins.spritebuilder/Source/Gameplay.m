@@ -32,7 +32,7 @@ static const float MIN_SPEED = 5.f;
     
     int xMin = _currentPenguin.boundingBox.origin.x;
     
-    if (xMin < self.boundingBox.size.width) {
+    if (xMin < self.boundingBox.origin.x) {
         [self nextAttempt];
         return;
     }
