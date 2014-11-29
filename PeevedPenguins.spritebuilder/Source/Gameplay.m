@@ -48,6 +48,11 @@
     }
 }
 
+-(void)touchMoved:(CCTouch *)touch withEvent:(CCTouchEvent *)event {
+    CGPoint touchLocation = [touch locationInNode:_contentNode];
+    _mouseJointNode.position = touchLocation;
+}
+
 -(void)releaseCatapult {
     if (_mouseJoint != nil) {
         [_mouseJoint invalidate];
