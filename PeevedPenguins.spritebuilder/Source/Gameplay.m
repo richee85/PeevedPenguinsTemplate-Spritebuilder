@@ -21,6 +21,8 @@
 }
 
 -(void)didLoadFromCCB {
+    _physicsNode.collisionDelegate = self;
+    
     self.userInteractionEnabled = true;
     
     CCScene *level = [CCBReader loadAsScene:@"Levels/Level_1"];
@@ -109,5 +111,12 @@
 -(void)retry {
     [[CCDirector sharedDirector] replaceScene:[CCBReader loadAsScene:@"Gameplay"]];
 }
+
+-(void)ccPhysicsCollisionPostSolve:(CCPhysicsCollisionPair *)pair seal:(CCNode *)nodeA wildcard:(CCNode *)nodeB {
+    CCLOG(@"something collided with a seal");
+}
+
+
+
 
 @end
