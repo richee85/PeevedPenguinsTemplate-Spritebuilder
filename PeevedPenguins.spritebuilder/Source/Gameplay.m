@@ -8,6 +8,7 @@
 
 #import "Gameplay.h"
 #import "CCPhysics+ObjectiveChipmunk.h"
+#import "Penguin.h"
 
 static const float MIN_SPEED = 5.f;
 
@@ -18,30 +19,32 @@ static const float MIN_SPEED = 5.f;
     CCNode *_contentNode;
     CCNode *_pullbackNode;
     CCNode *_mouseJointNode;
-    CCNode *_currentPenguin;
+    Penguin *_currentPenguin;
     CCPhysicsJoint *_penguinCatapultJoint;
     CCPhysicsJoint *_mouseJoint;
     CCAction *_followPenguin;
 }
 
 -(void)update:(CCTime)delta {
-    if (ccpLength(_currentPenguin.physicsBody.velocity) < MIN_SPEED) {
-        [self nextAttempt];
-        return;
-    }
-    
-    int xMin = _currentPenguin.boundingBox.origin.x;
-    
-    if (xMin < self.boundingBox.origin.x) {
-        [self nextAttempt];
-        return;
-    }
-    
-    int xMax = xMin + _currentPenguin.boundingBox.size.width;
-    
-    if (xMax > (self.boundingBox.origin.x + self.boundingBox.size.width)) {
-        [self nextAttempt];
-        return;
+    if (_currentPenguin.launched) {
+        if (ccpLength(_currentPenguin.physicsBody.velocity) < MIN_SPEED) {
+            [self nextAttempt];
+            return;
+        }
+        
+        int xMin = _currentPenguin.boundingBox.origin.x;
+        
+        if (xMin < self.boundingBox.origin.x) {
+            [self nextAttempt];
+            return;
+        }
+        
+        int xMax = xMin + _currentPenguin.boundingBox.size.width;
+        
+        if (xMax > (self.boundingBox.origin.x + self.boundingBox.size.width)) {
+            [self nextAttempt];
+            return;
+        }
     }
 }
 
@@ -74,7 +77,7 @@ static const float MIN_SPEED = 5.f;
                                                          restLength:0.f
                                                           stiffness:3000.f
                                                             damping:150.f];
-        _currentPenguin = [CCBReader load:@"Penguin"];
+        _currentPenguin = (Penguin *)[CCBReader load:@"Penguin"];
         CGPoint penguinPosition = [_catapultArm convertToWorldSpace:ccp(34, 138)];
         _currentPenguin.position = [_physicsNode convertToNodeSpace:penguinPosition];
         [_physicsNode addChild:_currentPenguin];
@@ -103,6 +106,8 @@ static const float MIN_SPEED = 5.f;
         
         _followPenguin = [CCActionFollow actionWithTarget:_currentPenguin worldBoundary:self.boundingBox];
         [_contentNode runAction:_followPenguin];
+        
+        _currentPenguin.launched = true;
     }
 }
 
